@@ -21,24 +21,22 @@ public class Solution198 {
 
         moneys[0] = 0;
 
-        for(int i = 1; i <= len; i++){
-            int q = 0;
-            for(int j = 1; j <= i; j++){
-                if(j == 1){
-                    q = nums[j - 1];
-                    flags[j] = true;
+        int q = 0;
+        for(int j = 1; j <= len; j++){
+            if(j == 1){
+                q = nums[j - 1];
+                flags[j] = true;
+            }else{
+                if(moneys[j - 1] > moneys[j - 2] + nums[j - 1]){
+                    q = moneys[j - 1];
+                    flags[j] =false;
                 }else{
-                    if(moneys[j - 1] > moneys[j - 2] + nums[j - 1]){
-                        q = moneys[j - 1];
-                        flags[j] =false;
-                    }else{
-                        q = moneys[j - 2] + nums[j - 1];
-                        flags[j - 1] = false;
-                        flags[j] = true;
-                    }
+                    q = moneys[j - 2] + nums[j - 1];
+                    flags[j - 1] = false;
+                    flags[j] = true;
                 }
             }
-            moneys[i] = q;
+            moneys[j] = q;
 
         }
         return moneys[len];
